@@ -1,25 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import { Message } from './components/Message/Message';
 
-function App() {
+const myText = 'Let me introduce myself. My name is Mariya I am a 20-year-old student from Donetsk. I study at the university in my native town and my future profession is bookkeeping. I live with my parents and my elder sister Lena. We are a friendly family. Lena is 2 years older than me. We share our room and tell all our secrets to each other.';
+
+export const App = function (props) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        My First React App
+        <Message text={myText} />
       </header>
     </div>
   );
 }
-
-export default App;
