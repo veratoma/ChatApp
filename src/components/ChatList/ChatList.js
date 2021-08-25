@@ -19,11 +19,13 @@ export const ChatList = (props) => {
 
     const classes = useStyles();
 
+    console.log(props.chatId)
     return (
+        
         <List className={classes.root}>
             {props.chatitems.map((chat) =>
                 <ListItem key={chat.id}>
-                    <ChatItem chat={chat}></ChatItem>
+                    <ChatItem isSelected={props.chatId===chat.id} chat={chat}></ChatItem>
                 </ListItem>
             )}
         </List>
