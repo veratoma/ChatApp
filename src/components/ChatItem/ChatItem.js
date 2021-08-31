@@ -11,9 +11,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    selected: {
+        color:'black',
+    }
 }));
 
-export const ChatItem = ({ chat }) => {
+export const ChatItem = (props) => {
 
     const classes = useStyles();
     return (
@@ -22,8 +25,8 @@ export const ChatItem = ({ chat }) => {
                 <Avatar>
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText>
-                {chat.name}
+            <ListItemText className={props.isSelected ? classes.selected :null }>
+                {props.chat.name}
             </ListItemText>
         </div>
     );
