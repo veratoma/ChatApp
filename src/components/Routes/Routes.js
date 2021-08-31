@@ -3,7 +3,8 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
+  Link,
+  // Router
 } from "react-router-dom";
 import { Chats } from "../../Pages/Chats/Chats";
 import { Home } from "../../Pages/Home/Home";
@@ -63,6 +64,7 @@ export default function Routes() {
 
       </Switch>
     </BrowserRouter>
+
   );
 
 }
