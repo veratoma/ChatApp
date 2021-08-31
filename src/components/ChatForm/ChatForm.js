@@ -1,5 +1,16 @@
-import './ChatForm.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Button, TextField, makeStyles } from '@material-ui/core';
+
+
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 500,
+    justifyContent: 'space-between',
+  },
+});
 
 export function ChatForm(props) {
 
@@ -19,16 +30,31 @@ export function ChatForm(props) {
   }
 
   const sendMessage = () => {
-    props.onSubmit(message)
-    setMessage(emptyMessage)
+    props.onSubmit(message);
+    setMessage(emptyMessage);
+    setFocus();
   }
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    setFocus()
+  }, []);
+
+  const setFocus = () => {
+    inputRef.current?.focus();
+  };
+
+  const classes = useStyles();
+
   return (
-    <div>
-      <input className="chatform" type="text" placeholder="Имя" value={message.author} onChange={handleChangeAuthor} /><br />
-      <input className="chatform" type="text" placeholder="Сообщение" value={message.text} onChange={handleChangeText} /><br />
-      <button className="chatform-button" onClick={sendMessage}> Отправить</button>
-    </div>
+    <form className={classes.root} noValidate autoComplete="off">
+      <TextField id="filled-basic" label="Сообщение" variant="filled" value={message.text} onChange={handleChangeText} inputRef={inputRef} />
+      <TextField id="standard-basic" label="Имя" value={message.author} onChange={handleChangeAuthor} />
+      <Button variant="contained" color="primary" onClick={sendMessage} disableElevation>
+        Отправить
+      </Button>
+    </form>
   )
 }
 

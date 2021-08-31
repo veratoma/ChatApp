@@ -2,6 +2,15 @@ import './App.css';
 import { ChatForm } from './components/ChatForm/ChatForm';
 import { MessageList } from './components/MessageList/MessageList';
 import React, { useEffect, useState } from 'react';
+import { ChatList } from './components/ChatList/ChatList'
+
+const chatitems = [
+  { name: 'Вероника', id: 'chat_1' },
+  { name: 'Игорь', id: 'chat_2' },
+  { name: 'Мария', id: 'chat_3' },
+  { name: 'Ирина', id: 'chat_4' },
+];
+
 
 export const App = function (props) {
 
@@ -22,16 +31,19 @@ export const App = function (props) {
     }
   }, [messages]);
 
+
   return (
     <div className="App">
 
       <header className="App-header">
-        My First React App
-        <ChatForm onSubmit={addMessage}></ChatForm>
-        <MessageList messages={messages}> </MessageList>
-
+        <div className="App-container">
+          <ChatList chatitems={chatitems}></ChatList>
+          <div>
+            <MessageList messages={messages}> </MessageList>
+            <ChatForm onSubmit={addMessage}></ChatForm>
+          </div>
+        </div>
       </header>
-
     </div>
   );
 }
