@@ -6,48 +6,55 @@ import { useParams } from "react-router-dom";
 import {
   Redirect
 } from "react-router-dom";
+import { chatsConnect } from '../../connects/chats';
+import {addMessageWithThunk} from '../../Store/collections/actoins'
+import { dispatch } from 'react';
+import { useCallback } from 'react';
+import {collectionsConnect} from '../../connects/collections'
 
-const chatitems = [
-  { name: 'Вероника', id: 'chat_1' },
-  { name: 'Игорь', id: 'chat_2' },
-  { name: 'Мария', id: 'chat_3' },
-  { name: 'Ирина', id: 'chat_4' },
-];
-
-export const Chats = function (props) {
+export const ChatsRender = function (props) {
 
   const [messages, setMessages] = useState([]);
 
   const addMessage = (message) => {
     setMessages([...messages, message])
   }
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const lastMessage = messages[messages.length - 1]
-    if (lastMessage && lastMessage.author !== "Bot") {
-      const botMessage = {
-        author: "Bot",
-        text: "Cообщение принято!"
-      }
-      setMessages([...messages, botMessage])
-    }
-  }, [messages]);
+  const onAddMessage = useCallback((message) => {
+    dispatch(addMessageWithThunk( message));
+  }, [dispatch]);
+  
+  console.log(addMessageWithThunk)
+
+  // useEffect(() => {
+  //   const lastMessage = messages[messages.length - 1]
+  //   if (lastMessage && lastMessage.author !== "Bot") {
+  //     const botMessage = {
+  //       author: "Bot",
+  //       text: "Cообщение принято!"
+  //     }
+  //     setMessages([...messages, botMessage])
+  //   }
+  // }, [messages]);
 
   const { chatId } = useParams();
-  const [chats, setChats] = useState(chatitems);
-
-  if (chatId && !chats.some(c => c.id === chatId))
+  
+  if (chatId && !props.chats.some(c => c.id === chatId))
     return <Redirect to="/nochat" />
 
   return (
     <div className="App-container">
-      <ChatList chatitems={chats}
+      <ChatList chatitems={props.chats}
         chatId={chatId}
       ></ChatList>
       <div>
-        <MessageList messages={messages}> </MessageList>
+        <MessageList messages={messages.filter(msg => msg.chatId === chatId)}> </MessageList>
         <ChatForm onSubmit={addMessage}></ChatForm>
       </div>
     </div>
   )
 };
+
+export const Chats = chatsConnect(ChatsRender);
+export const Message = collectionsConnect(ChatsRender)

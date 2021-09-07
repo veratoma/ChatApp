@@ -1,6 +1,8 @@
 const initialState = {
     showMyEmail: true,
-    myEmail: ''
+    myEmail: '',
+    showName: false,
+    name: 'Default'
 }
 
 export const profileReducer = (state = initialState, action) => {
@@ -9,6 +11,11 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showMyEmail: !state.showMyEmail
+            }
+        case 'CHANGE_NAME': 
+            return {
+              ...state,
+              name: action.payload
             }
         default:
             return state

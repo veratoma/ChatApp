@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, TextField, makeStyles } from '@material-ui/core';
-
+import { useParams } from 'react-router';
 
 const useStyles = makeStyles({
   root: {
@@ -13,8 +13,12 @@ const useStyles = makeStyles({
 });
 
 export function ChatForm(props) {
+  
+  const { chatId } = useParams();
 
   const emptyMessage = {
+    id: "",
+    chatId: "",
     author: "",
     text: ""
   };
@@ -30,7 +34,7 @@ export function ChatForm(props) {
   }
 
   const sendMessage = () => {
-    props.onSubmit(message);
+    props.onSubmit({ ...message, chatId: chatId, id: Date.now().toString() } );
     setMessage(emptyMessage);
     setFocus();
   }

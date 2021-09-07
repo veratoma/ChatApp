@@ -2,6 +2,7 @@ import React from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     selected: {
-        color:'black',
+        color: 'black',
     }
 }));
 
@@ -21,11 +22,13 @@ export const ChatItem = (props) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <ListItemAvatar>
-                <Avatar>
-                </Avatar>
-            </ListItemAvatar>
-            <ListItemText className={props.isSelected ? classes.selected :null }>
+            <Link to={`/chats/${props.chat.id}`} key={props.chat.id}>
+                <ListItemAvatar>
+                    <Avatar>
+                    </Avatar>
+                </ListItemAvatar>
+            </Link>
+            <ListItemText className={props.isSelected ? classes.selected : null}>
                 {props.chat.name}
             </ListItemText>
         </div>
