@@ -1,16 +1,14 @@
-import {ADD_CHAT} from "./actoins";
-
+import { ADD_CHAT } from "./actoins";
 
 const initialState = {
   chatList: [],
 }
 
-
 export const chatReducer = (state = initialState, action) => {
-  
+
   switch (action.type) {
     case ADD_CHAT: {
-      return  {
+      return {
         chatList: [
           ...state.chatList,
           action.payload,
@@ -21,5 +19,4 @@ export const chatReducer = (state = initialState, action) => {
       return state;
     }
   }
-
 }

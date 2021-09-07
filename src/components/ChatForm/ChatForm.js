@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, TextField, makeStyles } from '@material-ui/core';
 import { useParams } from 'react-router';
+import { collectionsConnect } from '../../connects/collections/index'
 
 const useStyles = makeStyles({
   root: {
@@ -8,12 +9,12 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     alignItems: 'center',
     width: 500,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
 });
 
-export function ChatForm(props) {
-  
+export function ChatFormRender(props) {
+
   const { chatId } = useParams();
 
   const emptyMessage = {
@@ -25,16 +26,12 @@ export function ChatForm(props) {
 
   const [message, setMessage] = useState(emptyMessage);
 
-  const handleChangeAuthor = (event) => {
-    setMessage({ ...message, author: event.target.value });
-  }
-
   const handleChangeText = (event) => {
     setMessage({ ...message, text: event.target.value });
   }
 
-  const sendMessage = () => {
-    props.onSubmit({ ...message, chatId: chatId, id: Date.now().toString() } );
+  const onAddMessage = () => {
+    props.addCollection({ ...message, chatId: chatId, id: Date.now().toString() });
     setMessage(emptyMessage);
     setFocus();
   }
@@ -54,11 +51,11 @@ export function ChatForm(props) {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField id="filled-basic" label="Сообщение" variant="filled" value={message.text} onChange={handleChangeText} inputRef={inputRef} />
-      <TextField id="standard-basic" label="Имя" value={message.author} onChange={handleChangeAuthor} />
-      <Button variant="contained" color="primary" onClick={sendMessage} disableElevation>
+      <Button variant="contained" color="primary" onClick={onAddMessage} disableElevation>
         Отправить
       </Button>
     </form>
   )
 }
 
+export const ChatForm = collectionsConnect(ChatFormRender);

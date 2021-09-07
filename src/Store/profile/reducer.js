@@ -12,10 +12,10 @@ export const profileReducer = (state = initialState, action) => {
                 ...state,
                 showMyEmail: !state.showMyEmail
             }
-        case 'CHANGE_NAME': 
+        case 'CHANGE_NAME':
             return {
-              ...state,
-              name: action.payload
+                ...state,
+                name: action.payload
             }
         default:
             return state

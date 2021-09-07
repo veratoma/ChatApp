@@ -1,11 +1,8 @@
 import React from 'react';
-import Switch from '@material-ui/core/Switch';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {FormGroup,FormControlLabel,Switch} from '@material-ui/core';
 import { useCallback, useState } from "react";
 import { toggleShowMyEmail } from '../../Store/profile/action'
 import { useDispatch, useSelector } from 'react-redux';
-
 
 
 export const Profile = () => {

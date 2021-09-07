@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {chatSelectors, createAddChat} from "../../Store/chats";
+import {createAddChat} from "../../Store/chats";
 
 
 const mapStateToProps = (state) => ({

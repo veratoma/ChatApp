@@ -8,27 +8,16 @@ export const createAddCollection = (message) => ({
   payload: message,
 })
 
-
-export const addMessageWithThunk = ( message) => (dispatch, getState) => {
-  dispatch(createAddCollection( message));
+export const addMessageWithThunk = (message) => (dispatch, getState) => {
+  dispatch(createAddCollection(message));
   if (message.author !== "BOT") {
-     const botMessage = {
+    const botMessage = {
+      id: Date.now().toString(),
+      chatId: message.chatId,
       author: "BOT",
       text: "Cообщение принято!"
-     }
-     
-     setTimeout(() => dispatch(createAddCollection( botMessage)), 2000);
+    }
+    setTimeout(() => dispatch(createAddCollection(botMessage)), 2000);
   }
 };
 
-
-// useEffect(() => {
-//   const lastMessage = messages[messages.length - 1]
-//   if (lastMessage && lastMessage.author !== "Bot") {
-//     const botMessage = {
-//       author: "Bot",
-//       text: "Cообщение принято!"
-//     }
-//     setMessages([...messages, botMessage])
-//   }
-// }, [messages]);

@@ -1,4 +1,4 @@
-const getCollections = (state) => state.collections.collections || [];
+const getCollections = (state) => state.collections.messages || [];
 
 export const collectionsSelectors = {
   getCollections

@@ -1,17 +1,16 @@
 import {connect} from "react-redux";
-import {collectionsSelectors, createAddCollection} from "../../Store/collections";
+import {collectionsSelectors, addMessageWithThunk} from "../../Store/collections";
 
 
 const mapStateToProps = (state) => ({
-  collections: collectionsSelectors.getCollections(state),
+  messages: collectionsSelectors.getCollections(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   addCollection(message) {
-    return dispatch(createAddCollection(message));
+    return dispatch(addMessageWithThunk(message));
   },
   
 })
-
 
 export const collectionsConnect = connect(mapStateToProps, mapDispatchToProps);

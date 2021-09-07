@@ -7,8 +7,8 @@ export const App = function () {
   return (
     <div className="App">
       <header className="App-header">
-      <Provider store={store}>
-        <Routes></Routes>
+        <Provider store={store}>
+          <Routes></Routes>
         </Provider>
       </header>
     </div>
