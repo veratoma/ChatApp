@@ -9,6 +9,7 @@ import { Chats } from "../../Pages/Chats/Chats";
 import { Home } from "../../Pages/Home/Home";
 import { Profile } from "../../Pages/Profile/Profile";
 import { NoChat } from "../NoChat/NoChat";
+import { Post } from "../../Pages/Post/Post";
 
 
 export default function Routes() {
@@ -21,7 +22,10 @@ export default function Routes() {
           </li>
 
           <li>
-            <Link to="/chats">chats</Link>
+            <Link to="/chats">Chats</Link>
+          </li>
+          <li>
+            <Link to="/posts">Post</Link>
           </li>
 
           <li>
@@ -55,6 +59,9 @@ export default function Routes() {
 
         <Route path="/nochat">
           <NoChat />
+        </Route>
+        <Route path="/posts">
+          <Post />
         </Route>
 
         <Route>
