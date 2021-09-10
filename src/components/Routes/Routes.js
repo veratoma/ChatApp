@@ -4,7 +4,6 @@ import {
   Switch,
   Route,
   Link,
-  // Router
 } from "react-router-dom";
 import { Chats } from "../../Pages/Chats/Chats";
 import { Home } from "../../Pages/Home/Home";

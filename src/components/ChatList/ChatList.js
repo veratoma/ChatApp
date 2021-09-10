@@ -1,8 +1,10 @@
 import React from 'react';
 import { ChatItem } from '../ChatItem/ChatItem'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import { DialogTitle,TextField, Button,Dialog,List,ListItem,makeStyles } from '@material-ui/core';
+import { useState } from 'react';
+import { chatsConnect } from '../../connects/chats';
+import { useParams } from 'react-router';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,19 +17,47 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const ChatList = (props) => {
+export const ChatListRender = (props) => {
 
     const classes = useStyles();
+    const [visible, setVisible] = useState(false);
+    const [newChatName, setNewChatName] = useState("");
+    const { chatId } = useParams();
+    const handleOpen = () => setVisible(true);
+    const handleClose = () => setVisible(false);
+    const handleChange = (e) => setNewChatName(e.target.value);
+    const onAddChat = () => {
+        props.addChat({
+            id: Date.now().toString(),
+            name: newChatName
+        })
+        setNewChatName("");
+        handleClose();
+    };
 
-    console.log(props.chatId)
     return (
-        
-        <List className={classes.root}>
-            {props.chatitems.map((chat) =>
-                <ListItem key={chat.id}>
-                    <ChatItem isSelected={props.chatId===chat.id} chat={chat}></ChatItem>
-                </ListItem>
-            )}
-        </List>
+        <div>
+            <List className={classes.root}>
+                {props.chats.map((chat) =>
+                    <ListItem key={chat.id}>
+                        <ChatItem isSelected={chatId === chat.id} chat={chat}></ChatItem>
+                    </ListItem>
+                )}
+            </List>
+
+            <button className="add-chat" onClick={handleOpen}>
+                Добавить новый чат
+            </button>
+
+            <Dialog open={visible} onClose={handleClose}>
+                <DialogTitle>Пожалуйста добавьте чат</DialogTitle>
+                <TextField value={newChatName} onChange={handleChange} />
+                <Button onClick={onAddChat} disabled={!newChatName}>
+                    Добавить
+                </Button>
+            </Dialog>
+        </div>
     );
 };
+
+export const ChatList = chatsConnect(ChatListRender);
